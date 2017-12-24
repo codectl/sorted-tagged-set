@@ -1,0 +1,48 @@
+name:                sorted-tagged-set
+version:             1.0.0
+github:              "rena2damas/sorted-tagged-set"
+license:             MIT
+author:              "Renato Damas"
+maintainer:          "rena2damas@gmail.com"
+copyright:           "2018 Renato Damas"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+synopsis:            Sorted tagged set Haskell module
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/githubuser/sorted-tagged-set#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  sorted-tagged-set-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sorted-tagged-set
+
+tests:
+  sorted-tagged-set-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sorted-tagged-set
