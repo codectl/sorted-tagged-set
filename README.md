@@ -14,7 +14,7 @@ This is an Haskell module that provides a tagged set datatype. A tagged set data
 * *merge* - returns the set resulting from the merge of two sets respecting the properties of the set described above
 
 ## Install
-The project was built under the [Haskell Tool Stack](https://docs.haskellstack.org). Therefore the project is built by by running:
+The project was built under the [Haskell Tool Stack](https://docs.haskellstack.org). Therefore the project is built by running:
 
 ```bash
 $ stack build
@@ -27,4 +27,4 @@ $ stack exec sorted-tagged-set-exe
 ```
 
 ## License
-Code and documentation released under the MIT License
+Code and documentation released under the [MIT License](https://github.com/rena2damas/sorted-tagged-set/blob/master/LICENSE)
