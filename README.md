@@ -1,5 +1,7 @@
 # SortedTaggedSet
 
+[![Build Status](https://travis-ci.org/rena2damas/sorted-tagged-set.svg?branch=master)](https://travis-ci.org/rena2damas/sorted-tagged-set)
+
 ## Description
 
 This is an Haskell module that provides a tagged set datatype. A tagged set datatype is a set where each element has associated a sequence of strings, designated by tag. Because it is a set, there is no repetition of elements nor tags within each tag. Different elements can, however, share the same tag. This module also guarantees sorting for both elements and tags. The supported operations for the SortedTaggedSet are:
