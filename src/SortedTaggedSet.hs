@@ -25,6 +25,11 @@ lengthSet (STS (_:xs)) = 1 + lengthSet (STS xs)
 singleton :: a -> SortedTaggedSet a
 singleton x = STS [(x,[])]
 
+-- Returns tags from an element
+peek :: (Ord a) => a -> SortedTaggedSet a -> [String]
+peek _ (STS []) = []
+peek e (STS ((x,xs):ys)) = if e == x then xs else peek e (STS ys)
+
 -- Inserts new element in set, if not present, returning sorted set
 insertSet :: Ord a => a -> SortedTaggedSet a -> SortedTaggedSet a
 insertSet x (STS sts) = STS (ins x sts)
@@ -42,7 +47,8 @@ removeSet x (STS sts) = STS (rem x sts)
     rem _ [] = []
     rem e ((x,xs):ys)
       | e < x     = (x,xs) : rem e ys
-      | otherwise = ys
+      | e == x    = ys
+      | otherwise = (x,xs):ys
 
 -- Inserts new element with tag to the set
 insertTag :: Ord a => String -> a -> SortedTaggedSet a -> SortedTaggedSet a
