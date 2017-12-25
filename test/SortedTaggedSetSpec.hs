@@ -16,20 +16,36 @@ spec = do
     it "creates empty set with 0 elements" $ do
       lengthSet empty `shouldBe` 0
 
+  describe "nullSet" $ do
+    it "is true when set is empty" $ do
+      nullSet empty `shouldBe` True
+
+    it "is false when set is not empty" $ do
+      nullSet (singleton 1) `shouldBe` False
+
   describe "belongs" $ do
     it "is false if set is empty" $ do
       belongs 1 empty `shouldBe` False
 
     it "is true if element is present" $ do
       belongs 1 (singleton 1) `shouldBe` True
+      belongs 2 (insertSet 2 $ singleton 1) `shouldBe` True
 
   describe "singleton" $ do
     it "creates set with 1 element" $ do
       lengthSet (singleton 1) `shouldBe` 1
 
+  describe "peek" $ do
+    it "is empty set if element does not exist" $ do
+      peek 2 (singleton 1) `shouldBe` []
+
+    it "gets tag if element exists" $ do
+      peek 2 (insertTag "a" 2 $ insertSet 2 $ singleton 1) `shouldBe` ["a"]
+
   describe "insertSet" $ do
     it "adds one element to the set if it does not exist" $ do
       lengthSet (insertSet 1 empty) `shouldBe` 1
+      lengthSet (insertSet 1 $ insertSet 3 $ insertSet 1 $ insertTag "a" 2 $ singleton 2) `shouldBe` 3
 
     it "does not add element if it already exists" $ do
       lengthSet (insertSet 1 $ singleton 1) `shouldBe` 1
