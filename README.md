@@ -1,7 +1,7 @@
 # SortedTaggedSet
 
 [![Build Status](https://travis-ci.org/rena2damas/sorted-tagged-set.svg?branch=master)](https://travis-ci.org/rena2damas/sorted-tagged-set)
-[![Coverage Status](https://codecov.io/gh/rena2damas/sorted-tagged-set/branch/master/graph/badge.svg)](https://codecov.io/gh/rena2damas/sorted-tagged-set)
+[![Coverage Status](https://coveralls.io/repos/github/rena2damas/sorted-tagged-set/badge.svg)](https://coveralls.io/github/rena2damas/sorted-tagged-set)
 
 
 ## Description
