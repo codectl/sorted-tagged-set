@@ -15,6 +15,10 @@ addons:
     packages:
       - libgmp-dev
 
+# Environment variables
+env:
+- GHCVER=7.10.2 STACK_YAML=stack.yaml
+
 before_install:
 # Download and unpack the stack executable
 - mkdir -p ~/.local/bin
@@ -29,6 +33,7 @@ script:
 # Build the package, its tests, and its docs and run the tests
 - stack --no-terminal test :sorted-tagged-set-test --coverage --haddock --no-haddock-deps
 
+# Executed after script
 after_script:
-- travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.3.0/shc-linux-x64-7.10.3.tar.bz2 | tar -xj
+- travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.3.0/shc-linux-x64-$GHCVER.tar.bz2 | tar -xj
 - ./shc sorted-tagged-set sorted-tagged-set-test
