@@ -4,8 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/rena2damas/sorted-tagged-set/badge.svg)](https://coveralls.io/github/rena2damas/sorted-tagged-set)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rena2damas/sorted-tagged-set/blob/master/LICENSE))
 
-
-
 ## Description
 
 This is an Haskell module that provides a tagged set datatype. A tagged set datatype is a set where each element has associated a sequence of strings, designated by tag. Because it is a set, there is no repetition of elements nor tags within each tag. Different elements can, however, share the same tag. This module also guarantees sorting for both elements and tags. The supported operations for the SortedTaggedSet are:
@@ -13,6 +11,7 @@ This is an Haskell module that provides a tagged set datatype. A tagged set data
 * *empty* -  returns empty set
 * *nullSet* - checks whether the set is empty
 * *belongs* - checks whether an elements belongs to the set
+* *lengthSet* - returns the number of elements in the set
 * *singleton* - creates a new set with a single element with empty tags
 * *insertSet* - inserts a new element to the set. If element exists, the set remains unchanged
 * *removeSet* - removes an element from the set. If the element does not belong to the set, the set remains unchanged
