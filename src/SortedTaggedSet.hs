@@ -16,6 +16,11 @@ belongs :: Ord a => a -> SortedTaggedSet a -> Bool
 belongs _ (STS []) = False
 belongs x (STS ((y,_):ys)) = x==y || (x>y && belongs x (STS ys))
 
+-- Returns the number of the elements in the set
+lengthSet :: SortedTaggedSet a -> Int
+lengthSet (STS []) = 0
+lengthSet (STS (_:xs)) = 1 + lengthSet (STS xs)
+
 -- Returns set with single element
 singleton :: a -> SortedTaggedSet a
 singleton x = STS [(x,[])]

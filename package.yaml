@@ -46,3 +46,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - sorted-tagged-set
+    - hspec == 2.*
+    - QuickCheck
