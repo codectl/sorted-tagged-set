@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/rena2damas/sorted-tagged-set.svg?branch=master)](https://travis-ci.org/rena2damas/sorted-tagged-set)
 [![Coverage Status](https://coveralls.io/repos/github/rena2damas/sorted-tagged-set/badge.svg)](https://coveralls.io/github/rena2damas/sorted-tagged-set)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rena2damas/sorted-tagged-set/blob/master/LICENSE))
+
 
 
 ## Description
