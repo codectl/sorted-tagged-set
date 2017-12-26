@@ -14,7 +14,7 @@ nullSet _ = False
 -- Checks whether element belongs to set
 belongs :: Ord a => a -> SortedTaggedSet a -> Bool
 belongs _ (STS []) = False
-belongs x (STS ((y,_):ys)) = x==y || (x>y && belongs x (STS ys))
+belongs x (STS (y:ys)) = x==fst y || (x>fst y && belongs x (STS ys))
 
 -- Returns the number of the elements in the set
 lengthSet :: SortedTaggedSet a -> Int
@@ -28,43 +28,43 @@ singleton x = STS [(x,[])]
 -- Returns tags from an element
 peek :: (Ord a) => a -> SortedTaggedSet a -> [String]
 peek _ (STS []) = []
-peek e (STS ((x,xs):ys)) = if e == x then xs else peek e (STS ys)
+peek e (STS (x:xs)) = if e == fst x then snd x else peek e (STS xs)
 
--- Inserts new element in set, if not present, returning sorted set
+-- Inserts new element in set, if not present
 insertSet :: Ord a => a -> SortedTaggedSet a -> SortedTaggedSet a
 insertSet x (STS sts) = STS (ins x sts)
   where
-    ins e [] = [(x,[])]
-    ins e ((x,xs):ys)
-      | e < x     = (e,[]):(x,xs):ys
-      | e == x    = (x,xs):ys
-      | otherwise = (x,xs) : ins e ys
+    ins e [] = [(e,[])]
+    ins e (x:xs) = case compare e (fst x) of
+      LT -> (e,[]):(x:xs)
+      EQ -> x:xs
+      GT -> x : ins e xs
 
 -- Removes element from set
 removeSet :: Ord a => a -> SortedTaggedSet a -> SortedTaggedSet a
 removeSet x (STS sts) = STS (rem x sts)
   where
     rem _ [] = []
-    rem e ((x,xs):ys)
-      | e < x     = (x,xs) : rem e ys
-      | e == x    = ys
-      | otherwise = (x,xs):ys
+    rem e (x:xs) = case compare e (fst x) of
+      LT -> x:xs
+      EQ -> xs
+      GT -> x : rem e xs
 
 -- Inserts new element with tag to the set
 insertTag :: Ord a => String -> a -> SortedTaggedSet a -> SortedTaggedSet a
 insertTag tag x (STS sts) = STS (insTag tag x sts)
   where
     insTag _ _ [] = []
-    insTag tag e ((x,xs):ys)
-      | e < x     = (x,xs):ys
-      | e == x    = (x,insElem tag xs):ys
-      | otherwise = (x,xs) : insTag tag e ys
+    insTag tag e (x:xs) = case compare e (fst x) of
+      LT -> x:xs
+      EQ -> (fst x, insElem tag (snd x)):xs
+      GT -> x : insTag tag e xs
       where
         insElem x [] = [x]
-        insElem x (y:ys)
-          | x < y    = x:y:ys
-          | x == y   = y:ys
-          | otherwise = y : insElem x ys
+        insElem x (y:ys) = case compare x y of
+          LT -> x:y:ys
+          EQ -> y:ys
+          GT -> y : insElem x ys
 
 -- Merges two sets
 merge :: Ord a => SortedTaggedSet a -> SortedTaggedSet a -> SortedTaggedSet a
@@ -72,17 +72,17 @@ merge (STS sts1) (STS sts2) = STS (merge' sts1 sts2)
   where
     merge' [] xs = xs
     merge' xs [] = xs
-    merge' ((x1,xs1):ys1) ((x2,xs2):ys2)
-      | x1 < x2   = (x1,xs1) : merge' ys1 ((x2,xs2):ys2)
-      | x1 > x2   = (x2,xs2) : merge' ((x1,xs1):ys1) ys2
-      | otherwise = (x1,(mergeSet xs1 xs2)) : merge' ys1 ys2
+    merge' (x:xs) (y:ys) = case compare (fst x) (fst y) of
+      LT -> x : merge' xs (y:ys)
+      GT -> y : merge' (x:xs) ys
+      EQ -> (fst x, (mergeSet (snd x) (snd y))) : merge' xs ys
       where
         mergeSet xs [] = xs
         mergeSet [] xs = xs
-        mergeSet (x:xs) (y:ys)
-          | x < y     = x : mergeSet xs (y:ys)
-          | x == y    = x : mergeSet xs ys
-          | otherwise = y : mergeSet (x:xs) ys
+        mergeSet (x:xs) (y:ys) = case compare x y of
+          LT -> x : mergeSet xs (y:ys)
+          EQ -> x : mergeSet xs ys
+          GT -> y : mergeSet (x:xs) ys
 
 instance Show a => Show (SortedTaggedSet a) where
   show (STS ts) = "{" ++ printTaggedSet ts ++ "}"
