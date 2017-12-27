@@ -1,4 +1,7 @@
-module SortedTaggedSetSpec (main, spec) where
+module SortedTaggedSetSpec (
+  main,
+  spec
+  ) where
 
 import Test.Hspec
 import Test.QuickCheck
@@ -78,3 +81,8 @@ spec = do
       (lengthSet $ merge (singleton 1) (insertSet 2 $ singleton 1)) `shouldBe` 2
       (peek 1 $ merge (insertTag "d" 1 $ insertTag "b" 1 $ insertTag "a" 1 $ singleton 1) (insertTag "c" 1 $ insertTag "b" 1 $ singleton 1)) `shouldBe` ["a","b","c","d"]
       (peek 1 $ merge (singleton 1) (insertTag "a" 1 $ singleton 1)) `shouldBe` ["a"]
+
+  describe "show" $ do
+    it "prints a textual representation for a set" $ do
+      show (empty::SortedTaggedSet Int) `shouldBe` "{ }"
+      show (insertSet 2 $ singleton 1) `shouldBe` "{1#[],2#[]}"

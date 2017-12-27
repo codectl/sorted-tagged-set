@@ -1,4 +1,17 @@
-module SortedTaggedSet where
+module SortedTaggedSet (
+  SortedTaggedSet,
+  empty,
+  nullSet,
+  belongs,
+  lengthSet,
+  singleton,
+  peek,
+  insertSet,
+  removeSet,
+  insertTag,
+  merge,
+  show
+) where
 
 data SortedTaggedSet a = STS [(a,[String])]
 
@@ -84,10 +97,11 @@ merge (STS sts1) (STS sts2) = STS (merge' sts1 sts2)
           EQ -> x : mergeSet xs ys
           GT -> y : mergeSet (x:xs) ys
 
+-- Textual representation for the sorted tagged set
 instance Show a => Show (SortedTaggedSet a) where
-  show (STS ts) = "{" ++ printTaggedSet ts ++ "}"
+  show (STS ts) = "{" ++ printTaggedSet (STS ts) ++ "}"
 
-printTaggedSet :: Show a => [(a,[String])] -> String
-printTaggedSet [] = " "
-printTaggedSet [(elem,tags)] = show elem ++ "#" ++ show tags
-printTaggedSet ((elem,tags):elems) = show elem ++ "#" ++ show tags ++ "," ++ printTaggedSet elems
+printTaggedSet :: Show a => SortedTaggedSet a -> String
+printTaggedSet (STS []) = " "
+printTaggedSet (STS [(elem,tags)]) = show elem ++ "#" ++ show tags
+printTaggedSet (STS ((elem,tags):elems)) = show elem ++ "#" ++ show tags ++ "," ++ printTaggedSet (STS elems)

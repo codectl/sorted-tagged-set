@@ -18,6 +18,7 @@ This is an Haskell module that provides a tagged set datatype. A tagged set data
 * *removeSet* - removes an element from the set. If the element does not belong to the set, the set remains unchanged
 * *insertTag* - inserts a new tag to an existent tag. If the element does not belong to the set, the set remains unchanged
 * *merge* - returns the set resulting from the merge of two sets respecting the properties of the set described above
+* *show* - provides textual representation for sorted tagged set
 
 ## Install
 The project was built under the [Haskell Tool Stack](https://docs.haskellstack.org). Therefore the project is built by running:
